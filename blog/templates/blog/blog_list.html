@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog List</title>
+</head>
+<body>
+    <!-- Display messages -->
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {{ message }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <h1>All Blog Posts</h1>
+    <a href="{% url 'blog_create' %}">Create New Blog Post</a>
+    <hr>
+    <p>Number of blogs: {{ blogs|length }}</p>
+    {% if blogs %}
+        <ul>
+            {% for blog in blogs %}
+                <li>
+                    <a href="{% url 'blog_detail' blog.pk %}">{{ blog.title }}</a>
+                    by {{ blog.author }} on {{ blog.published_date }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No blog posts available. Be the first to create one!</p>
+    {% endif %}
+</body>
+</html>
